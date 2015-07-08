@@ -1,0 +1,42 @@
+{
+  "name": "puppet-odbc",
+  "version": "0.0.1",
+  "author": "Bitlancer LLC",
+  "summary": "Installs, configures, and manages UNIX ODBC.",
+  "license": "Apache-2.0",
+  "source": "git://github.com/bitlancer/puppet-odbc.git",
+  "project_page": "http://github.com/bitlancer/puppet-odbc.git",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5",
+        "6"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "5",
+        "6"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "description": "ODBC module",
+  "dependencies": [
+    {"name":"puppetlabs/stdlib","version_requirement":">= 3.2.0 < 5.0.0"}
+  ]
+}
