@@ -2,7 +2,7 @@ define odbc::datasource (
   $description = undef,
   $driver      = undef,
   $database    = undef,
-  $servername  = undef,
+  $server      = undef,
   $username    = undef,
   $password    = undef,
   $read_only   = undef,
@@ -22,14 +22,13 @@ define odbc::datasource (
         "Description" => $description,
         "Driver"      => $driver,
         "Database"    => $database,
-        "ServerName"  => $servername,
+        "Server"      => $server,
         "UserName"    => $username,
         "Password"    => $password,
         "ReadOnly"    => $read_only,
         "Trace"       => $trace
-      })
-    )
-  ], "set ${name}/")
+      }), " "),
+  "set ${name}/")
 
   augeas { "odbc datasource ${name}":
     lens    => 'Odbc.lns',
