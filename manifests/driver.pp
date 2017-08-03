@@ -1,6 +1,7 @@
 define odbc::driver (
   $package_name      = undef,
   $package_ensure    = "present",
+  $manage_package    = true,
   $override_settings = false,
   $description       = undef,
   $driver            = undef,
@@ -17,8 +18,10 @@ define odbc::driver (
     fail("You must define driver or driver64")
   }
 
-  package { $package_name:
-    ensure => $package_ensure
+  if $manage_package {
+    package { $package_name:
+      ensure => $package_ensure
+    }
   }
   
   $augeas_changes = prefix(
