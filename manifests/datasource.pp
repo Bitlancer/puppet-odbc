@@ -31,8 +31,9 @@ define odbc::datasource (
   "set ${name}/")
 
   augeas { "odbc datasource ${name}":
-    lens    => 'Odbc.lns',
-    incl    => '/etc/odbc.ini',
-    changes => $augeas_changes
+    lens      => 'Odbc.lns',
+    incl      => '/etc/odbc.ini',
+    changes   => $augeas_changes,
+    show_diff => false, # This contains plaintext passwords
   }
 }
