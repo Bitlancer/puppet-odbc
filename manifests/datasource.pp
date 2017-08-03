@@ -6,7 +6,8 @@ define odbc::datasource (
   $username    = undef,
   $password    = undef,
   $read_only   = undef,
-  $trace       = undef
+  $trace       = undef,
+  $is_oracle   = undef,
 ) {
 
   if !defined(Odbc::Driver[$driver]){
@@ -16,19 +17,30 @@ define odbc::datasource (
     Odbc::Driver[$driver] -> Augeas["odbc datasource ${name}"]
   }
 
+  $_settings_base = {
+    "Description" => $description,
+    "Driver"      => $driver,
+    "Database"    => $database,
+    "Password"    => $password,
+    "ReadOnly"    => $read_only,
+    "Trace"       => $trace
+  }
+
+  if $is_oracle or ($is_oracle == undef and $driver =~ /(?i:oracle)/) {
+    $_settings = $_settings_base + {
+      "ServerName" => $server,
+      "UserID"     => $username,
+    }
+  } else {
+    $_settings = $_settings_base + {
+      "Server"      => $server,
+      "UserName"    => $username,
+    }
+  }
+
   $augeas_changes = prefix(
-    join_keys_to_values(
-      delete_undef_values({
-        "Description" => $description,
-        "Driver"      => $driver,
-        "Database"    => $database,
-        "Server"      => $server,
-        "UserName"    => $username,
-        "Password"    => $password,
-        "ReadOnly"    => $read_only,
-        "Trace"       => $trace
-      }), " "),
-  "set ${name}/")
+    join_keys_to_values(delete_undef_values($_settings), " "),
+    "set ${name}/")
 
   augeas { "odbc datasource ${name}":
     lens      => 'Odbc.lns',
