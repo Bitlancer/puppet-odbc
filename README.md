@@ -18,7 +18,7 @@ odbc::driver { 'MySQL'
   driver            => '/usr/lib64/libmyodbc5.so'
 }
 
-odbc::datasource { 'somedb':
+odbc::datasource::generic { 'somedb':
   description => 'ODBC access to somedb',
   driver      => 'MySQL 5.1',
   database    => 'somedb',
@@ -46,7 +46,15 @@ Define an ODBC driver.
 
 ### `odbc::datasource`
 
-Define a system ODBC datasource.
+Define a custom system ODBC datasource.
+
+### `odbc::datasource::generic`
+
+Define a generic system ODBC datasource.
+
+### `odbc::datasource::oracle`
+
+Define an Oracle system ODBC datasource.
 
 # To Do
 
