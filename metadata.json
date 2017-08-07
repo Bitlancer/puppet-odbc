@@ -1,6 +1,6 @@
 {
   "name": "puppet-odbc",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "Bitlancer LLC",
   "summary": "Installs, configures, and manages UNIX ODBC.",
   "license": "Apache-2.0",

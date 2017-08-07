@@ -1,0 +1,9 @@
+# Fixtures
+spec/fixtures
+
+# Mac
+.DS_Store
+
+# Bundler
+.bundle
+vendor

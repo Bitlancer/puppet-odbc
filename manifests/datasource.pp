@@ -1,38 +1,26 @@
 define odbc::datasource (
-  $description = undef,
-  $driver      = undef,
-  $database    = undef,
-  $server      = undef,
-  $username    = undef,
-  $password    = undef,
-  $read_only   = undef,
-  $trace       = undef
+  $settings = {}
 ) {
 
-  if !defined(Odbc::Driver[$driver]){
-    warning("You have not defined the driver, ${driver}, that this datasource depends on")
+  include ::odbc
+
+  $_driver = $settings['Driver']
+
+  if !defined(Odbc::Driver[$_driver]){
+    warning("You have not defined the driver, ${_driver}, that this datasource depends on")
   }
   else {
-    Odbc::Driver[$driver] -> Augeas["odbc datasource ${name}"]
+    Odbc::Driver[$_driver] -> Augeas["odbc datasource ${name}"]
   }
 
   $augeas_changes = prefix(
-    join_keys_to_values(
-      delete_undef_values({
-        "Description" => $description,
-        "Driver"      => $driver,
-        "Database"    => $database,
-        "Server"      => $server,
-        "UserName"    => $username,
-        "Password"    => $password,
-        "ReadOnly"    => $read_only,
-        "Trace"       => $trace
-      }), " "),
-  "set ${name}/")
+    join_keys_to_values(delete_undef_values($settings), ' '),
+    "set ${name}/")
 
   augeas { "odbc datasource ${name}":
-    lens    => 'Odbc.lns',
-    incl    => '/etc/odbc.ini',
-    changes => $augeas_changes
+    lens      => 'Odbc.lns',
+    incl      => '/etc/odbc.ini',
+    changes   => $augeas_changes,
+    show_diff => false, # This contains plaintext passwords
   }
 }
