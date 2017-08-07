@@ -2,6 +2,8 @@ define odbc::datasource (
   $settings = {}
 ) {
 
+  include ::odbc
+
   $_driver = $settings['Driver']
 
   if !defined(Odbc::Driver[$_driver]){
@@ -12,7 +14,7 @@ define odbc::datasource (
   }
 
   $augeas_changes = prefix(
-    join_keys_to_values(delete_undef_values($settings), " "),
+    join_keys_to_values(delete_undef_values($settings), ' '),
     "set ${name}/")
 
   augeas { "odbc datasource ${name}":

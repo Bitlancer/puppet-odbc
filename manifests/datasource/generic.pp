@@ -10,14 +10,14 @@ define odbc::datasource::generic (
 ) {
 
   $_settings = {
-    "Server"      => $server,
-    "UserName"    => $username,
-    "Description" => $description,
-    "Driver"      => $driver,
-    "Database"    => $database,
-    "Password"    => $password,
-    "ReadOnly"    => $read_only,
-    "Trace"       => $trace
+    'Server'      => $server,
+    'UserName'    => $username,
+    'Description' => $description,
+    'Driver'      => $driver,
+    'Database'    => $database,
+    'Password'    => $password,
+    'ReadOnly'    => $read_only,
+    'Trace'       => $trace
   }
 
   odbc::datasource { $name:

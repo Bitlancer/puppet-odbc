@@ -10,14 +10,14 @@ define odbc::datasource::oracle (
 ) {
 
   $_settings = {
-    "ServerName"  => $server,
-    "UserID"      => $username,
-    "Description" => $description,
-    "Driver"      => $driver,
-    "Database"    => $database,
-    "Password"    => $password,
-    "ReadOnly"    => $read_only,
-    "Trace"       => $trace
+    'ServerName'  => $server,
+    'UserID'      => $username,
+    'Description' => $description,
+    'Driver'      => $driver,
+    'Database'    => $database,
+    'Password'    => $password,
+    'ReadOnly'    => $read_only,
+    'Trace'       => $trace
   }
 
   odbc::datasource { $name:

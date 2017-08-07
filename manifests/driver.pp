@@ -1,6 +1,6 @@
 define odbc::driver (
   $package_name      = undef,
-  $package_ensure    = "present",
+  $package_ensure    = 'present',
   $manage_package    = true,
   $override_settings = false,
   $description       = undef,
@@ -15,7 +15,7 @@ define odbc::driver (
   include ::odbc
 
   if $override_settings and $driver == undef and $driver64 == undef {
-    fail("You must define driver or driver64")
+    fail('You must define driver or driver64')
   }
 
   if $manage_package {
@@ -23,20 +23,20 @@ define odbc::driver (
       ensure => $package_ensure
     }
   }
-  
+
   $augeas_changes = prefix(
     join_keys_to_values(
       delete_undef_values({
-        "Description" => $description,
-        "Driver"      => $driver,
-        "Setup"       => $setup,
-        "Driver64"    => $driver64,
-        "Setup64"     => $setup64,
-        "FileUsage"   => $file_usage,
-        "UsageCount"  => $usage_count
-      }), " "),
+        'Description' => $description,
+        'Driver'      => $driver,
+        'Setup'       => $setup,
+        'Driver64'    => $driver64,
+        'Setup64'     => $setup64,
+        'FileUsage'   => $file_usage,
+        'UsageCount'  => $usage_count
+      }), ' '),
     "set ${name}/")
-  
+
   if $override_settings {
     augeas { "odbc driver ${name}":
       lens    => 'Odbc.lns',
